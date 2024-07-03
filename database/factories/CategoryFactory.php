@@ -9,15 +9,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CategoriesFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
+    protected $model = Category::class;
+
     public function definition(): array
     {
         return [
-            'name'=>fake()->name,
+            'name' => fake()->name,
         ];
     }
 }
