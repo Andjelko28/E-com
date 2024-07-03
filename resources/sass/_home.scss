@@ -1,0 +1,32 @@
+.h1-font {
+    font-family: "Bungee";
+    color: gray;
+}
+
+.layout {
+    display: grid;
+    grid-template-areas:
+        "nav nav"
+        "aside main";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 200px 1fr;
+    height: 100vh;
+}
+
+nav {
+    grid-area: nav;
+    background-color: #8080801a;
+    color: white;
+    padding: 1rem;
+}
+
+aside {
+    grid-area: aside;
+    background-color: #80808070;
+    padding: 1rem;
+}
+
+main {
+    grid-area: main;
+    padding: 1rem;
+}
