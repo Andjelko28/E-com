@@ -20,7 +20,7 @@
             </div>
         </nav>
         <aside>
-            <div>
+            <div class="p-1">
                 <a class="btn btn-secondary m-2 dropdown-button">All Products</a>
                 <Dropdown :fetchData="null">Categories</Dropdown>
                 <Dropdown :fetchData="null">Brand</Dropdown>
