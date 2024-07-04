@@ -1,8 +1,20 @@
 <template>
     <div class="dropdown m-2">
-        <button :for="label" class="btn btn-secondary dropdown-toggle dropdown-button"><slot></slot></button>
+        <button
+            :id="label"
+            class="btn btn-secondary dropdown-toggle dropdown-button"
+        >
+            {{ selectedValue ? selectedValue.name : label }}
+        </button>
         <div class="dropdown-menu">
-            <a href="" class="dropdown-item">Link 1</a>
+            <a
+                href=""
+                class="dropdown-item"
+                v-for="item in items"
+                :key="item.id"
+                @click.prevent="selectValue(item)"
+                >{{ item.name }}</a
+            >
         </div>
     </div>
 </template>
@@ -11,9 +23,13 @@
 export default {
     props: {
         label: String,
-    },
-    fetchData: {
-        type: Function,
+        fetchData: {
+            type: Function,
+            required: true,
+            validator: function (value) {
+                return typeof value === "function";
+            },
+        },
     },
     data() {
         return {
@@ -22,10 +38,23 @@ export default {
         };
     },
     mounted() {
-        //  this.fetcData().then((response) => {
-        //      this.items = response.data;
-        //  });
+        this.loadValues();
+    },
+    methods: {
+        async loadValues() {
+            if (this.fetchData) {
+                try {
+                    const response = await this.fetchData();
+                    this.items = response.data;
+                } catch (error) {
+                    console.error("Error fetching data", error);
+                }
+            }
+        },
+        selectValue(item) {
+            this.selectedValue = item;
+            this.$emit("item-selected", item);
+        },
     },
 };
 </script>
-

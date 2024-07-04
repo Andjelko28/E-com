@@ -21,9 +21,10 @@
         </nav>
         <aside>
             <div class="p-1">
-                <a class="btn btn-secondary m-2 dropdown-button">All Products</a>
-                <Dropdown :fetchData="null">Categories</Dropdown>
-                <Dropdown :fetchData="null">Brand</Dropdown>
+                <a class="btn btn-secondary m-2 dropdown-button"
+                    >All Products</a>
+                <Dropdown label="Categories" :fetchData="fetchCategory"></Dropdown>
+                <Dropdown label="Brand" :fetchData="null"></Dropdown>
             </div>
         </aside>
         <main></main>
@@ -31,11 +32,25 @@
 </template>
 
 <script>
+import axios from "axios";
 import Dropdown from "./helpers/Dropdown.vue";
 
 export default {
-    components:{
-        Dropdown
-    }
+    components: {
+        Dropdown,
+    },
+    data() {
+        return {
+            selectedCategoryId: null,
+        };
+    },
+    methods: {
+        fetchCategory() {
+            return axios.get("/api/categories");
+        },
+        onCategorySelected(category) {
+            this.selectedCategoryId = category.id;
+        },
+    },
 };
 </script>
