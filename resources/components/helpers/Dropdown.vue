@@ -45,6 +45,7 @@ export default {
             if (this.fetchData) {
                 try {
                     const response = await this.fetchData();
+                    console.log(response.data);
                     this.items = response.data;
                 } catch (error) {
                     console.error("Error fetching data", error);

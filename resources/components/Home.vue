@@ -22,22 +22,32 @@
         <aside>
             <div class="p-1">
                 <a class="btn btn-secondary m-2 dropdown-button"
-                    >All Products</a>
-                <Dropdown label="Categories" :fetchData="fetchCategory"></Dropdown>
-                <Dropdown label="Brand" :fetchData="null"></Dropdown>
+                    >All Products</a
+                >
+                <Dropdown
+                    label="Categories"
+                    :fetchData="fetchCategory"
+                ></Dropdown>
+                <Dropdown label="Brand" :fetchData="fetchBrands"></Dropdown>
             </div>
         </aside>
-        <main></main>
+        <main>
+            <div>
+                <ProductList></ProductList>
+            </div>
+        </main>
     </div>
 </template>
 
 <script>
 import axios from "axios";
 import Dropdown from "./helpers/Dropdown.vue";
+import ProductList from "./ProductList.vue";
 
 export default {
     components: {
         Dropdown,
+        ProductList,
     },
     data() {
         return {
@@ -45,11 +55,14 @@ export default {
         };
     },
     methods: {
-        fetchCategory() {
-            return axios.get("/api/categories");
+        async fetchCategory() {
+            return await axios.get("/api/categories");
         },
         onCategorySelected(category) {
             this.selectedCategoryId = category.id;
+        },
+        async fetchBrands() {
+            return await axios.get("/api/brands");
         },
     },
 };

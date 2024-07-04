@@ -9,7 +9,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $category = Category::select('name')->get();
-        return response()->json($category);
+        return Category::all();
     }
 }
