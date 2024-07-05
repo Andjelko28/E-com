@@ -21,7 +21,9 @@
         </nav>
         <aside>
             <div class="p-1">
-                <a class="btn btn-secondary m-2 dropdown-button"
+                <a
+                    class="btn btn-secondary m-2 dropdown-button"
+                    @click.prevent="showAllProducts"
                     >All Products</a
                 >
                 <Dropdown
@@ -32,9 +34,7 @@
             </div>
         </aside>
         <main>
-            <div>
-                <ProductList></ProductList>
-            </div>
+            <ProductTable v-if="showProducts"></ProductTable>
         </main>
     </div>
 </template>
@@ -42,16 +42,17 @@
 <script>
 import axios from "axios";
 import Dropdown from "./helpers/Dropdown.vue";
-import ProductList from "./ProductList.vue";
+import ProductTable from "./ProductTable.vue";
 
 export default {
     components: {
         Dropdown,
-        ProductList,
+        ProductTable,
     },
     data() {
         return {
             selectedCategoryId: null,
+            showProducts: false,
         };
     },
     methods: {
@@ -63,6 +64,9 @@ export default {
         },
         async fetchBrands() {
             return await axios.get("/api/brands");
+        },
+        showAllProducts() {
+            this.showProducts = true;
         },
     },
 };
