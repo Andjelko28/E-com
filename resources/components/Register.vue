@@ -34,7 +34,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="password_confirmation">Confirm Password</label>
+                            <label for="password_confirmation"
+                                >Confirm Password</label
+                            >
                             <input
                                 type="password"
                                 class="form-control"
@@ -57,5 +59,30 @@
     </div>
 </template>
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+    data() {
+        return {
+            form: {
+                email: "",
+                password: "",
+                password_confirmation: "",
+            },
+            formErrors: {},
+        };
+    },
+    methods: {
+        async registerUser() {
+            try {
+                const response = await axios.post("/api/register", this.form);
+                console.log("Registration successful!");
+                return response.data;
+            } catch (error) {
+                this.formErrors = error.response.data.errors;
+                console.error("Error on registration", error);
+            }
+        },
+    },
+};
 </script>
