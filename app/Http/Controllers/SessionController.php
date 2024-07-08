@@ -20,6 +20,8 @@ class SessionController extends Controller
                 'password' => 'Sorry, your password is not correct.'
             ]);
         }
-        request()->session()->regenerate();
+        if ($request->hasSession()) {
+            $request->old();
+        }
     }
 }

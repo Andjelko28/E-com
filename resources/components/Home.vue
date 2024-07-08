@@ -7,6 +7,11 @@
             <div>
                 <ul class="list-style-none d-flex gap-2 m-0">
                     <li class="btn btn-light fs-5">
+                        <router-link to="/" class="a-style-none"
+                            >Log Out</router-link
+                        >
+                    </li>
+                    <li class="btn btn-light fs-5">
                         <router-link to="/login" class="a-style-none"
                             >Log In</router-link
                         >
