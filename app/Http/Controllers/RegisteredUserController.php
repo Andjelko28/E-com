@@ -11,7 +11,6 @@ class RegisteredUserController extends Controller
     public function register(Request $request)
     {
         $userAttributes = $request->validate([
-            'name' => 'required',
             'email' => 'required',
             'password' => 'required|confirmed|min:6',
         ]);

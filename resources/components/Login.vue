@@ -1,18 +1,16 @@
 <template>
     <div class="form-container">
-        <form>
+        <form @submit.prevent="login">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="exampleInputEmail1"
-                                >Email address</label
-                            >
+                            <label for="email">Email address</label>
                             <input
                                 type="email"
                                 class="form-control"
                                 id="email"
-                                aria-describedby="emailHelp"
+                                v-model="form.email"
                                 placeholder="johndoe@gmail.com"
                             />
                         </div>
@@ -26,6 +24,7 @@
                                 type="password"
                                 class="form-control"
                                 id="password"
+                                v-model="form.password"
                                 placeholder="Password"
                             />
                         </div>
@@ -44,5 +43,27 @@
     </div>
 </template>
 <script>
-export default {};
+import axios from "axios";
+export default {
+    data() {
+        return {
+            form: {
+                email: "",
+                password: "",
+            },
+            formErrors: {},
+        };
+    },
+    methods: {
+        async login() {
+            try {
+                const response = await axios.post("/api/login", this.form);
+                response.data;
+                return this.$router.push("/");
+            } catch (error) {
+                console.error("Logging in failed, please try again!");
+            }
+        },
+    },
+};
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="form-container">
-        <form>
+        <form @submit.prevent="registerUser">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
@@ -12,6 +12,7 @@
                                 type="email"
                                 class="form-control"
                                 id="email"
+                                v-model="form.email"
                                 aria-describedby="emailHelp"
                                 placeholder="johndoe@gmail.com"
                             />
@@ -26,6 +27,7 @@
                                 type="password"
                                 class="form-control"
                                 id="password"
+                                v-model="form.password"
                                 placeholder="Password"
                             />
                         </div>
@@ -41,6 +43,7 @@
                                 type="password"
                                 class="form-control"
                                 id="password_confirmation"
+                                v-model="form.password_confirmation"
                                 placeholder="Confirm Password"
                             />
                         </div>
@@ -77,7 +80,8 @@ export default {
             try {
                 const response = await axios.post("/api/register", this.form);
                 console.log("Registration successful!");
-                return response.data;
+                response.data;
+                return this.$router.push("/");
             } catch (error) {
                 this.formErrors = error.response.data.errors;
                 console.error("Error on registration", error);
