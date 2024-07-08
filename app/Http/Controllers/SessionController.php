@@ -10,18 +10,17 @@ class SessionController extends Controller
 {
     public function login(Request $request)
     {
-        $userAttributes =  $request->validate([
+        $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
-        if (!Auth::attempt($userAttributes)) {
-            throw ValidationException::withMessages([
-                'email' => 'Sorry, your email does not match.',
-                'password' => 'Sorry, your password is not correct.'
-            ]);
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('AuthToken')->accessToken;
+            return response()->json(['token' => $token]);
         }
-        if ($request->hasSession()) {
-            $request->old();
-        }
+        return response()->json(['error' => ['email' => 'These credentials do not match our records']], 422);
     }
 }

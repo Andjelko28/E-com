@@ -7,7 +7,10 @@
             <div>
                 <ul class="list-style-none d-flex gap-2 m-0">
                     <li class="btn btn-light fs-5">
-                        <router-link to="/" class="a-style-none"
+                        <router-link
+                            to="/"
+                            class="a-style-none"
+                            @click.prevent="logout"
                             >Log Out</router-link
                         >
                     </li>
@@ -72,6 +75,15 @@ export default {
         },
         showAllProducts() {
             this.showProducts = true;
+        },
+        async logout() {
+            try {
+                await axios.post("/api/logout");
+                localStorage.removeItem("token");
+                this.isLoggedIn = false;
+            } catch (error) {
+                console.error("Error during logout", error);
+            }
         },
     },
 };

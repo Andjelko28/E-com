@@ -79,6 +79,8 @@ export default {
         async registerUser() {
             try {
                 const response = await axios.post("/api/register", this.form);
+                const token = response.data.token;
+                localStorage.setItem("token", token);
                 console.log("Registration successful!");
                 response.data;
                 return this.$router.push("/");

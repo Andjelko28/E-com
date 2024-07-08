@@ -52,16 +52,24 @@ export default {
                 password: "",
             },
             formErrors: {},
+            isLoggedIn: false,
         };
     },
     methods: {
         async login() {
             try {
                 const response = await axios.post("/api/login", this.form);
-                response.data;
-                return this.$router.push("/");
+                if (response.data.success) {
+                    const token = response.data.token;
+                    localStorage.setItem("token", token);
+                    this.isLoggedIn = true;
+                    return this.$router.push("/");
+                } else
+                    (error) => {
+                        console.error("Login failed", error);
+                    };
             } catch (error) {
-                console.error("Logging in failed, please try again!");
+                console.error("Logging in failed, please try again!", error);
             }
         },
     },

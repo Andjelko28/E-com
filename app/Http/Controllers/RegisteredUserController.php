@@ -17,6 +17,14 @@ class RegisteredUserController extends Controller
 
         $user = User::create($userAttributes);
 
-        Auth::login($user);
+        if (!$user) {
+            return response()->json(['error' => 'USer registration failed'], 500);
+        }
+        try {
+            $token = $user->createToken('AuthToken')->accessToken;
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Token creation failed'], 500);
+        }
+        return response()->json(['token' => $token], 200);
     }
 }
