@@ -59,17 +59,20 @@ export default {
         async login() {
             try {
                 const response = await axios.post("/api/login", this.form);
-                if (response.data.success) {
-                    const token = response.data.token;
-                    localStorage.setItem("token", token);
-                    this.isLoggedIn = true;
-                    return this.$router.push("/");
-                } else
-                    (error) => {
-                        console.error("Login failed", error);
-                    };
+                const token = response.data.token;
+                localStorage.setItem("AuthToken", token);
+                axios.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${token}`;
+
+                window.location = "/";
+                return this.$router.push("/");
             } catch (error) {
-                console.error("Logging in failed, please try again!", error);
+                if (error.response && error.response.status === 422) {
+                    this.loginError = "Your email or password are incorrect!";
+                } else {
+                    this.loginError = "Logging in failed, please try again!";
+                }
             }
         },
     },

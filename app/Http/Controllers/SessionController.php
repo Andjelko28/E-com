@@ -23,4 +23,13 @@ class SessionController extends Controller
         }
         return response()->json(['error' => ['email' => 'These credentials do not match our records']], 422);
     }
+
+    public function destroy(Request $request)
+    {
+        if (Auth::check() && $request->user()->token()) {
+            $request->user()->token()->revoke();
+        }
+        Auth::logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
 }

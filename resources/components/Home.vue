@@ -5,26 +5,15 @@
                 ><h1 class="h1-font">BBBuy</h1></router-link
             >
             <div>
-                <ul class="list-style-none d-flex gap-2 m-0">
-                    <li class="btn btn-light fs-5">
-                        <router-link
-                            to="/"
-                            class="a-style-none"
-                            @click.prevent="logout"
-                            >Log Out</router-link
-                        >
-                    </li>
-                    <li class="btn btn-light fs-5">
-                        <router-link to="/login" class="a-style-none"
-                            >Log In</router-link
-                        >
-                    </li>
-                    <li class="btn btn-light fs-5">
-                        <router-link to="/register" class="a-style-none"
-                            >Sign Up</router-link
-                        >
-                    </li>
-                </ul>
+                <button v-if="isLog" class="btn btn-danger" @click="logout">
+                    Log Out
+                </button>
+                <router-link v-if="!isLog" to="/login" class="btn btn-light"
+                    >Log In</router-link
+                >
+                <router-link v-if="!isLog" to="/register" class="btn btn-light"
+                    >Sign Up</router-link
+                >
             </div>
         </nav>
         <aside>
@@ -61,6 +50,7 @@ export default {
         return {
             selectedCategoryId: null,
             showProducts: false,
+            isLog: localStorage.getItem("AuthToken"),
         };
     },
     methods: {
@@ -78,11 +68,21 @@ export default {
         },
         async logout() {
             try {
-                await axios.post("/api/logout");
-                localStorage.removeItem("token");
-                this.isLoggedIn = false;
+                const token = localStorage.getItem("AuthToken");
+                await axios.post("/api/logout", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                localStorage.removeItem("AuthToken");
+                this.isLog = false;
+                this.$router.push("/login"); // Redirect to login page using Vue Router
             } catch (error) {
-                console.error("Error during logout", error);
+                if (error.response && error.response.status === 401) {
+                    console.error("Unauthorized access. Please log in again.");
+                } else {
+                    console.error("Error logging out:", error);
+                }
             }
         },
     },

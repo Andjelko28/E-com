@@ -77,16 +77,31 @@ export default {
     },
     methods: {
         async registerUser() {
+            this.formErrors.email = "";
             try {
                 const response = await axios.post("/api/register", this.form);
+                console.log(response);
                 const token = response.data.token;
-                localStorage.setItem("token", token);
-                console.log("Registration successful!");
-                response.data;
-                return this.$router.push("/");
+                localStorage.setItem("AuthToken", token);
+                axios.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${token}`;
+                console.log("Registration successful", response.data);
+                window.location = "/";
+                this.resetForm();
+                return routes.push("/");
             } catch (error) {
-                this.formErrors = error.response.data.errors;
-                console.error("Error on registration", error);
+                if (error.response) {
+                    if (error.response.status === 422) {
+                        this.formErrors = error.response.data.errors;
+                    } else {
+                        this.registerError =
+                            "Registration failed, please try again.";
+                    }
+                } else {
+                    this.registerError =
+                        "Registration failed, please try again.";
+                }
             }
         },
     },

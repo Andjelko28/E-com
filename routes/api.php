@@ -10,7 +10,7 @@ use App\Http\Controllers\RegisteredUserController;
 
 Route::post('/login', [SessionController::class, 'login']);
 Route::post('/register', [RegisteredUserController::class, 'register']);
-Route::get('/check-auth', [AuthController::class, 'checkAuth'])->middleware('auth');
+Route::post('/logout', [SessionController::class, 'destroy']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);
