@@ -17,55 +17,28 @@
             </div>
         </nav>
         <aside>
-            <div class="p-1">
-                <a
-                    class="btn btn-secondary m-2 dropdown-button"
-                    @click.prevent="showAllProducts"
-                    >All Products</a
-                >
-                <Dropdown
-                    label="Categories"
-                    :fetchData="fetchCategory"
-                ></Dropdown>
-                <Dropdown label="Brand" :fetchData="fetchBrands"></Dropdown>
-            </div>
+            <Categories></Categories>
         </aside>
-        <main>
-            <ProductTable v-if="showProducts"></ProductTable>
-        </main>
+        <main></main>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import Dropdown from "./helpers/Dropdown.vue";
-import ProductTable from "./ProductTable.vue";
+import Dropdown from "./helpers/Categories.vue";
+import Categories from "./helpers/Categories.vue";
 
 export default {
     components: {
         Dropdown,
-        ProductTable,
+        Categories,
     },
     data() {
         return {
-            selectedCategoryId: null,
-            showProducts: false,
             isLog: localStorage.getItem("AuthToken"),
         };
     },
     methods: {
-        async fetchCategory() {
-            return await axios.get("/api/categories");
-        },
-        onCategorySelected(category) {
-            this.selectedCategoryId = category.id;
-        },
-        async fetchBrands() {
-            return await axios.get("/api/brands");
-        },
-        showAllProducts() {
-            this.showProducts = true;
-        },
         async logout() {
             try {
                 const token = localStorage.getItem("AuthToken");
