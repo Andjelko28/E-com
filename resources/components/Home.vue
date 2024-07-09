@@ -5,10 +5,17 @@
                 ><h1 class="h1-font">BBBuy</h1></router-link
             >
             <div>
+                <router-link v-if="isLog" to="/admin" class="btn btn-light mx-2"
+                    >Dashboard</router-link
+                >
                 <button v-if="isLog" class="btn btn-danger" @click="logout">
                     Log Out
                 </button>
-                <router-link v-if="!isLog" to="/login" class="btn btn-light"
+
+                <router-link
+                    v-if="!isLog"
+                    to="/login"
+                    class="btn btn-light mx-2"
                     >Log In</router-link
                 >
                 <router-link v-if="!isLog" to="/register" class="btn btn-light"

@@ -3,6 +3,7 @@ import Home from '../components/Home.vue';
 import Register from '../components/Register.vue';
 import Login from '../components/Login.vue';
 import ProductTable from '../components/ProductTable.vue';
+import AdminDashboard from '../components/admin/AdminDashboard.vue';
 
 const routes = [
     {
@@ -16,6 +17,9 @@ const routes = [
     },
     {
         path: '/products', component: ProductTable
+    },
+    {
+        path: '/admin', component: AdminDashboard
     }
 ];
 
