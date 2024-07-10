@@ -56,7 +56,7 @@ export default {
                 });
                 localStorage.removeItem("AuthToken");
                 this.isLog = false;
-                this.$router.push("/login"); // Redirect to login page using Vue Router
+                this.$router.push("/");
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     console.error("Unauthorized access. Please log in again.");

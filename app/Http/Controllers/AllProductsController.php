@@ -12,13 +12,8 @@ class AllProductsController extends Controller
         return Products::all();
     }
 
-    public function getByCategory($categoryId)
+    public function store(Request $request)
     {
-        return Products::where('category_id', $categoryId)->get();
-    }
-
-    public function getByBrand($brandId)
-    {
-        return Products::where('brand_id', $brandId)->get();
+        Products::create($request->all());
     }
 }

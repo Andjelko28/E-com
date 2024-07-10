@@ -11,4 +11,15 @@ class BrandsController extends Controller
     {
         return Brands::all();
     }
+
+    public function store(Request $request)
+    {
+        $validate = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category = Brands::create($validate);
+
+        return response()->json($category);
+    }
 }
