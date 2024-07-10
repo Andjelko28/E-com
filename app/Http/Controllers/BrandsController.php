@@ -20,6 +20,6 @@ class BrandsController extends Controller
 
         $category = Brands::create($validate);
 
-        return response()->json($category);
+        return response()->json(['brand' => $category]);
     }
 }

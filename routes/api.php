@@ -13,8 +13,8 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 
 
 Route::post('/categories', [CategoryController::class, 'store']);
-Route::post('/brands', [CategoryController::class, 'store']);
-Route::post('/products', [CategoryController::class, 'store']);
+Route::post('/brands', [BrandsController::class, 'store']);
+Route::post('/products', [AllProductsController::class, 'store']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);

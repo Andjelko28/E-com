@@ -20,6 +20,6 @@ class CategoryController extends Controller
 
         $category = Category::create($validate);
 
-        return response()->json($category);
+        return response()->json(['category' => $category]);
     }
 }
