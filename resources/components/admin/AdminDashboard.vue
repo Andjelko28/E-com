@@ -20,13 +20,8 @@
                 <input type="number" id="price" v-model="form.price" required />
             </div>
             <div>
-                <label for="quantity">Quantity</label>
-                <input
-                    type="number"
-                    id="quantity"
-                    v-model="form.quantity"
-                    required
-                />
+                <label for="stock">Quantity</label>
+                <input type="number" id="stock" v-model="form.stock" required />
             </div>
             <div>
                 <label for="category">Category</label>
@@ -60,10 +55,6 @@
                 </select>
                 <input type="text" v-model="newBrand" placeholder="New Brand" />
             </div>
-            <div>
-                <label for="image">Image</label>
-                <input type="file" id="image" @change="onFileChange" />
-            </div>
             <button type="submit">Add product</button>
         </form>
     </div>
@@ -92,10 +83,9 @@ export default {
                 name: "",
                 description: "",
                 price: "",
-                quantity: "",
+                stock: "",
                 category_id: "",
                 brand_id: "",
-                image: null,
             };
         },
         async fetchData(endpoint, dataProperty) {
@@ -145,10 +135,6 @@ export default {
                     this.newBrand = "";
                 }
             }
-        },
-        onFileChange(event) {
-            const file = event.target.files[0];
-            this.form.image = file;
         },
         async submitForm() {
             try {
