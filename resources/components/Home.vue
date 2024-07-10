@@ -26,7 +26,9 @@
         <aside>
             <Categories></Categories>
         </aside>
-        <main></main>
+        <main>
+            <List></List>
+        </main>
     </div>
 </template>
 
@@ -34,11 +36,13 @@
 import axios from "axios";
 import Dropdown from "./helpers/Categories.vue";
 import Categories from "./helpers/Categories.vue";
+import List from "./helpers/ProductList.vue";
 
 export default {
     components: {
         Dropdown,
         Categories,
+        List,
     },
     data() {
         return {
