@@ -55,6 +55,9 @@
                 </select>
                 <input type="text" v-model="newBrand" placeholder="New Brand" />
             </div>
+            <div>
+                <input type="file" @change="onFileChange" />
+            </div>
             <button type="submit">Add product</button>
         </form>
     </div>
@@ -86,6 +89,7 @@ export default {
                 stock: "",
                 category_id: "",
                 brand_id: "",
+                image: null,
             };
         },
         async fetchData(endpoint, dataProperty) {
@@ -157,6 +161,9 @@ export default {
             } catch (error) {
                 console.error("Error adding product:", error);
             }
+        },
+        onFileChange(event) {
+            this.form.image = event.target.files[0];
         },
     },
 };

@@ -1,9 +1,9 @@
 <template>
     <div class="product-card">
-        <div class="product-image">
-            <img :src="'/storage/' + product.photo" alt="Product Image" />
-        </div>
         <div class="product-details">
+            <div class="product-image" v-if="product.image">
+                <img :src="getImageUrl(product.image)" alt="Product Image" />
+            </div>
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
             <p>Price: ${{ product.price }}</p>
@@ -31,6 +31,9 @@ export default {
         getBrandName(brandId) {
             const brand = this.brands.find((brand) => brand.id === brandId);
             return brand ? brand.name : "Unknown";
+        },
+        getImageUrl(imagePath) {
+            return `/images/products/${imagePath}`;
         },
     },
 };
