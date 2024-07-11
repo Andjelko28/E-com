@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>Products</h2>
         <div class="product-list">
             <product-card
                 v-for="product in products"

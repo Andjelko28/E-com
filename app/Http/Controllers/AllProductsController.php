@@ -30,7 +30,7 @@ class AllProductsController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $path = 'images/products/';
             $image->move($path, $filename);
-            $product->image = "$path$filename";
+            $product->image = "/images/products/$filename";
         }
 
         $product->save();
