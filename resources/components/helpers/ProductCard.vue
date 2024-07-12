@@ -10,6 +10,9 @@
             <p>Quantity: {{ product.quantity }}</p>
             <p>Category: {{ getCategoryName(product.category_id) }}</p>
             <p>Brand: {{ getBrandName(product.brand_id) }}</p>
+            <button class="btn btn-primary">
+                <i class="bi bi-cart m-1 primary"></i>Add to cart
+            </button>
         </div>
     </div>
 </template>
