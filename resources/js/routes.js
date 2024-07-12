@@ -19,7 +19,9 @@ const routes = [
         path: '/products', component: ProductTable
     },
     {
-        path: '/admin', component: AdminDashboard
+        path: '/admin',
+        name: 'admin',
+        component: AdminDashboard
     }
 ];
 
