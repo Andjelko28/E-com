@@ -3,6 +3,10 @@
         <router-link to="/" class="a-style-none"
             ><h1 class="h1-font">BBBuy</h1></router-link
         >
+        <div class="cart-icon">
+            <i class="bi bi-cart3"></i>
+            <span v-if="itemCount > 0" class="cart-badge">{{ itemCount }}</span>
+        </div>
         <div class="dropdown">
             <button
                 data-mdb-button-init
@@ -63,6 +67,10 @@ export default {
             isLog: localStorage.getItem("AuthToken"),
         };
     },
+    props: {
+        type: Number,
+        required: true,
+    },
     methods: {
         async logout() {
             try {
@@ -94,3 +102,26 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.cart-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cart-icon i {
+    font-size: 24px; /* Adjust icon size */
+}
+
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px; /* Adjust font size */
+}
+</style>

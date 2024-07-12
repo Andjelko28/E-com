@@ -10,7 +10,7 @@
             <p>Quantity: {{ product.quantity }}</p>
             <p>Category: {{ getCategoryName(product.category_id) }}</p>
             <p>Brand: {{ getBrandName(product.brand_id) }}</p>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" @click="addToCart(product)">
                 <i class="bi bi-cart m-1 primary"></i>Add to cart
             </button>
         </div>
@@ -37,6 +37,22 @@ export default {
         },
         getImageUrl(imagePath) {
             return `/images/products/${imagePath}`;
+        },
+        addToCart(product) {
+            axios
+                .post("/api/cart", {
+                    product_id: product.id,
+                    quantity: 1, // You can customize the quantity as needed
+                })
+                .then((response) => {
+                    // Handle the response, e.g., update cart count
+                    this.$emit("cart-updated");
+                    console.log("Product added to cart:", response.data);
+                })
+                .catch((error) => {
+                    // Handle the error
+                    console.error("Error adding product to cart:", error);
+                });
         },
     },
 };
