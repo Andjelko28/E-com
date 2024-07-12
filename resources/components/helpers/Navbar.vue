@@ -16,7 +16,10 @@
             >
                 <i class="bi bi-person-circle"></i>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul
+                class="dropdown-menu account-settings-dropdown"
+                aria-labelledby="dropdownMenuButton1"
+            >
                 <li>
                     <router-link
                         v-if="isLog && !isActive"
@@ -26,7 +29,11 @@
                     >
                 </li>
                 <li>
-                    <button v-if="isLog" class="dropdown-item" @click="logout">
+                    <button
+                        v-if="isLog"
+                        class="dropdown-item log-out-red"
+                        @click="logout"
+                    >
                         Log Out
                     </button>
                 </li>
