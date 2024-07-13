@@ -40,10 +40,18 @@ export default {
         },
         addToCart(product) {
             axios
-                .post("/api/cart", {
-                    product_id: product.id,
-                    quantity: 1, // You can customize the quantity as needed
-                })
+                .post(
+                    "/api/cart",
+                    {
+                        product_id: product.id,
+                        quantity: 1, // You can customize the quantity as needed
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
                 .then((response) => {
                     // Handle the response, e.g., update cart count
                     this.$emit("cart-updated");

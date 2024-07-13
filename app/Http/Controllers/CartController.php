@@ -17,7 +17,9 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+        $user_id = Auth::id();
+
+        $cart = Cart::firstOrCreate(['user_id' => $user_id]);
 
         $cartItem = CartItem::updateOrCreate(
             ['card_id' => $cart->id, 'product_id' => $request->product_id],

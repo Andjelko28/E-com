@@ -21,7 +21,9 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);
 Route::get('/products', [AllProductsController::class, 'index']);
 
-Route::get('/cart', [CartController::class, 'index']);
-Route::post('/cart', [CartController::class, 'store']);
-Route::put('/cart/{id}', [CartController::class, 'update']);
-Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+Route::middleware('auth:passport')->group(function () {
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::put('/cart/{id}', [CartController::class, 'update']);
+    Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+});
