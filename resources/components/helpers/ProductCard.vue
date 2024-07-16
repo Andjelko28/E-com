@@ -18,11 +18,22 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     props: {
-        product: Object,
-        categories: Array,
-        brands: Array,
+        product: {
+            type: Object,
+            required: true,
+        },
+        categories: {
+            type: Array,
+            required: true,
+        },
+        brands: {
+            type: Array,
+            required: true,
+        },
     },
     methods: {
         getCategoryName(categoryId) {
@@ -38,29 +49,52 @@ export default {
         getImageUrl(imagePath) {
             return `/images/products/${imagePath}`;
         },
-        addToCart(product) {
-            axios
-                .post(
+        async addToCart(product) {
+            try {
+                const token = localStorage.getItem("AuthToken");
+
+                // Check if the token is available
+                if (!token) {
+                    console.error(
+                        "User is not authenticated or token is missing."
+                    );
+                    return; // Exit the function if token is missing
+                }
+
+                // Decode the JWT token to get the user ID
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                const user_id = payload.sub;
+
+                // Ensure the product ID is available
+                if (!product.id) {
+                    console.error("Product ID is missing.");
+                    return; // Exit the function if product ID is missing
+                }
+
+                const quantity = 2; // Adjust quantity as needed
+
+                // Send the request to add the product to the cart
+                const response = await axios.post(
                     "/api/cart",
                     {
+                        user_id,
                         product_id: product.id,
-                        quantity: 1, // You can customize the quantity as needed
+                        quantity,
                     },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     }
-                )
-                .then((response) => {
-                    // Handle the response, e.g., update cart count
-                    this.$emit("cart-updated");
-                    console.log("Product added to cart:", response.data);
-                })
-                .catch((error) => {
-                    // Handle the error
-                    console.error("Error adding product to cart:", error);
-                });
+                );
+
+                // Emit an event indicating that the cart has been updated
+                this.$emit("cart-updated");
+                console.log("Product added to cart:", response.data);
+            } catch (error) {
+                // Log any errors that occur during the request
+                console.error("Error adding product to cart:", error);
+            }
         },
     },
 };

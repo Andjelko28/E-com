@@ -21,7 +21,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);
 Route::get('/products', [AllProductsController::class, 'index']);
 
-Route::middleware('auth:passport')->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
     Route::put('/cart/{id}', [CartController::class, 'update']);

@@ -3,10 +3,6 @@
         <router-link to="/" class="a-style-none"
             ><h1 class="h1-font">BBBuy</h1></router-link
         >
-        <div class="cart-icon">
-            <i class="bi bi-cart3"></i>
-            <span v-if="itemCount > 0" class="cart-badge">{{ itemCount }}</span>
-        </div>
         <div class="dropdown">
             <button
                 data-mdb-button-init
@@ -61,6 +57,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
     data() {
         return {

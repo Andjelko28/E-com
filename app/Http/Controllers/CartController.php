@@ -22,10 +22,16 @@ class CartController extends Controller
         $cart = Cart::firstOrCreate(['user_id' => $user_id]);
 
         $cartItem = CartItem::updateOrCreate(
-            ['card_id' => $cart->id, 'product_id' => $request->product_id],
+            ['cart_id' => $cart->id, 'product_id' => $request->product_id],
             ['quantity' => $request->quantity]
         );
-        return response()->json($cartItem);
+        $totalItems = CartItem::where('cart_id', $cart->id)->sum('quantity');
+
+
+        return response()->json([
+            'cartItem' => $cartItem,
+            'totalItems' => $totalItems
+        ]);
     }
 
     public function update(Request $request, $id)

@@ -44,7 +44,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="category">Category</label>
-                <select class="form-select" v-model="form.category_id" required>
+                <select class="form-select" v-model="form.category_id">
                     <option value="" disabled>Select a Category</option>
                     <option
                         v-for="category in categories"
@@ -63,7 +63,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="brand">Brand</label>
-                <select class="form-select" v-model="form.brand_id" required>
+                <select class="form-select" v-model="form.brand_id">
                     <option value="" disabled>Select a Brand</option>
                     <option
                         v-for="brand in brands"
