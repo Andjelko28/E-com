@@ -4,6 +4,7 @@ import Register from '../components/Register.vue';
 import Login from '../components/Login.vue';
 import ProductTable from '../components/ProductTable.vue';
 import AdminDashboard from '../components/admin/AdminDashboard.vue';
+import Cart from '../components/Cart.vue';
 
 const routes = [
     {
@@ -22,6 +23,10 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: AdminDashboard
+    },
+    {
+        path: '/cart',
+        component: Cart
     }
 ];
 
