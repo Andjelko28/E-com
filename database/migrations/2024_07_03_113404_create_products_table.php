@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('brands_id')->constrained('brands')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price')->nullable();
+            $table->decimal('price', 9, 3);
             $table->integer('stock');
             $table->timestamps();
         });

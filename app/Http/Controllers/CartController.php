@@ -47,6 +47,17 @@ class CartController extends Controller
         ]);
     }
 
+    public function getCartItems()
+    {
+        $user_id = Auth::id();
+        $cart = Cart::firstOrCreate(['user_id' => $user_id]);
+        $cartItems = CartItem::where('cart_id', $cart->id)
+            ->with('product')
+            ->get();
+
+        return response()->json($cartItems);
+    }
+
     public function update(Request $request, $id)
     {
         $cartItem = CartItem::find($id);
