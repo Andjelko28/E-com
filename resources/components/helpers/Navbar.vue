@@ -63,7 +63,7 @@
 
 <script>
 import axios from "axios";
-import CartBadge from "../helpers/CartBadge.vue";
+import CartBadge from "../cart/CartBadge.vue";
 
 export default {
     components: {

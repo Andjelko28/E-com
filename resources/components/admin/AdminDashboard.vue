@@ -15,7 +15,7 @@
 <script>
 import Navbar from "../helpers/Navbar.vue";
 import AddProduct from "../admin/AddProduct.vue";
-import Cart from "../Cart.vue";
+import Cart from "../cart/Cart.vue";
 
 export default {
     components: {

@@ -13,7 +13,7 @@
 <script>
 import Dropdown from "./helpers/Categories.vue";
 import Categories from "./helpers/Categories.vue";
-import List from "./helpers/ProductList.vue";
+import List from "./products/ProductList.vue";
 import Navbar from "./helpers/Navbar.vue";
 
 export default {
