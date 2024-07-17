@@ -24,6 +24,7 @@ Route::get('/products', [AllProductsController::class, 'index']);
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
+    Route::get('/cart/items-count', [CartController::class, 'getItemCount']);
     Route::put('/cart/{id}', [CartController::class, 'update']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 });

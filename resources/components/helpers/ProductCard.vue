@@ -87,7 +87,6 @@ export default {
                         },
                     }
                 );
-
                 // Emit an event indicating that the cart has been updated
                 this.$emit("cart-updated");
                 console.log("Product added to cart:", response.data);

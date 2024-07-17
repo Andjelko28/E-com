@@ -23,13 +23,25 @@ class CartController extends Controller
 
         $cartItem = CartItem::updateOrCreate(
             ['cart_id' => $cart->id, 'product_id' => $request->product_id],
-            ['quantity' => $request->quantity]
+            // ['quantity' => $request->quantity]
         );
         $totalItems = CartItem::where('cart_id', $cart->id)->sum('quantity');
 
 
         return response()->json([
             'cartItem' => $cartItem,
+            'totalItems' => $totalItems
+        ]);
+    }
+
+    public function getItemCount()
+    {
+        $user_id = Auth::id();
+
+        $cart = Cart::firstOrCreate(['user_id' => $user_id]);
+        $totalItems = CartItem::where('cart_id', $cart->id)->sum('quantity');
+
+        return response()->json([
             'totalItems' => $totalItems
         ]);
     }
