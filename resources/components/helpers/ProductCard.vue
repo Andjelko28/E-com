@@ -7,7 +7,7 @@
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
             <p>Price: ${{ product.price }}</p>
-            <p>Quantity: {{ product.quantity }}</p>
+            <p>Stock: {{ product.stock }}</p>
             <p>Category: {{ getCategoryName(product.category_id) }}</p>
             <p>Brand: {{ getBrandName(product.brand_id) }}</p>
             <button class="btn btn-primary" @click="addToCart(product)">
@@ -71,7 +71,7 @@ export default {
                     return; // Exit the function if product ID is missing
                 }
 
-                const quantity = 2; // Adjust quantity as needed
+                const quantity = 1; // Adjust quantity as needed
 
                 // Send the request to add the product to the cart
                 const response = await axios.post(

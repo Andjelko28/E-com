@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -23,7 +24,7 @@ class CartController extends Controller
 
         $cartItem = CartItem::updateOrCreate(
             ['cart_id' => $cart->id, 'product_id' => $request->product_id],
-            // ['quantity' => $request->quantity]
+            ['quantity' => DB::raw("quantity + {$request->quantity}")] // Can add one product more then one time...
         );
         $totalItems = CartItem::where('cart_id', $cart->id)->sum('quantity');
 

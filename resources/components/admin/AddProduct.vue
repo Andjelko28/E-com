@@ -33,7 +33,7 @@
                 />
             </div>
             <div class="form-group mb-3">
-                <label for="stock">Quantity</label>
+                <label for="stock">Stock</label>
                 <input
                     type="number"
                     class="form-control"
