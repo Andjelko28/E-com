@@ -15,7 +15,7 @@ class AllProductsController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $attributes =  $request->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -25,13 +25,7 @@ class AllProductsController extends Controller
 
         $product = Products::create($request->all());
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $path = 'images/products/';
-            $image->move($path, $filename);
-            $product->image = "/images/products/$filename";
-        }
+        $attributes['image'] = request()->file('image')->store('images');
 
         $product->save();
 

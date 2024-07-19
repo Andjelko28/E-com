@@ -2,7 +2,7 @@
     <div class="product-card">
         <div class="product-details">
             <div class="product-image" v-if="product.image">
-                <img :src="getImageUrl(product.image)" alt="Product Image" />
+                <img :src="product.image" alt="Product Image" />
             </div>
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
