@@ -6,6 +6,7 @@ use App\Http\Controllers\AllProductsController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\RegisteredUserController;
 
 // Routes for user
@@ -34,3 +35,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/cart/{id}', [CartController::class, 'update']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 });
+
+//Image
+Route::post('/upload-image', [ImageController::class, 'store']);

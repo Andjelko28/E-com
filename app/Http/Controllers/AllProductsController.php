@@ -20,6 +20,7 @@ class AllProductsController extends Controller
             'description' => 'required',
             'price' => 'required',
             'stock' => 'required',
+            'image_path' => 'nullable|string'
         ]);
 
         $product = Products::create($request->all());

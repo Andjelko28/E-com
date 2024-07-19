@@ -80,6 +80,9 @@
                     placeholder="New Brand"
                 />
             </div>
+            <div>
+                <Uploader ref="imageUploader"></Uploader>
+            </div>
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
     </div>
@@ -87,8 +90,12 @@
 
 <script>
 import axios from "axios";
+import Uploader from "../uploader/ImageUploader.vue";
 
 export default {
+    components: {
+        Uploader,
+    },
     data() {
         return {
             form: this.getInitialFormData(),
@@ -111,7 +118,7 @@ export default {
                 stock: "",
                 category_id: "",
                 brand_id: "",
-                image: null,
+                image_path: null,
             };
         },
         async fetchData(endpoint, dataProperty) {
