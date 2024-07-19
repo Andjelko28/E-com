@@ -15,18 +15,15 @@
 <script>
 import Navbar from "../helpers/Navbar.vue";
 import AddProduct from "./AddProduct.vue";
-import Cart from "../cart/Cart.vue";
 
 export default {
     components: {
         Navbar,
         AddProduct,
-        Cart,
     },
     data() {
         return {
             comp: "AddProduct",
-            comp: "Cart",
         };
     },
 };

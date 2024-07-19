@@ -80,13 +80,6 @@
                     placeholder="New Brand"
                 />
             </div>
-            <div class="form-group mb-3">
-                <input
-                    type="file"
-                    class="form-control"
-                    @change="onFileChange"
-                />
-            </div>
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
     </div>
@@ -190,9 +183,6 @@ export default {
             } catch (error) {
                 console.error("Error adding product:", error);
             }
-        },
-        onFileChange(event) {
-            this.form.image = event.target.files[0];
         },
     },
 };

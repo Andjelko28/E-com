@@ -20,12 +20,9 @@ class AllProductsController extends Controller
             'description' => 'required',
             'price' => 'required',
             'stock' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $product = Products::create($request->all());
-
-        $attributes['image'] = request()->file('image')->store('images');
 
         $product->save();
 
