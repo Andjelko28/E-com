@@ -97,7 +97,8 @@ export default {
                 });
                 localStorage.removeItem("AuthToken");
                 this.isLog = false;
-                this.$router.push("/");
+                window.location = "/";
+                routes.push("/");
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     console.error("Unauthorized access. Please log in again.");

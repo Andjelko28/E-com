@@ -87,7 +87,7 @@ export default {
                     "Authorization"
                 ] = `Bearer ${token}`;
                 console.log("Registration successful", response.data);
-                window.location = "/";
+                window.location.reload();
                 this.resetForm();
                 return routes.push("/");
             } catch (error) {
