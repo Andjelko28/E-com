@@ -1,6 +1,7 @@
 <template>
     <div class="product-card">
         <div class="product-details">
+            <img :src="imageUrl" alt="Product image" class="product-image" />
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
             <p>Price: ${{ product.price }}</p>
@@ -32,48 +33,44 @@ export default {
             required: true,
         },
     },
-    methods: {
-        getCategoryName(categoryId) {
-            const category = this.categories.find(
+    setup(props) {
+        const getCategoryName = (categoryId) => {
+            const category = props.categories.find(
                 (cat) => cat.id === categoryId
             );
             return category ? category.name : "Unknown";
-        },
-        getBrandName(brandId) {
-            const brand = this.brands.find((brand) => brand.id === brandId);
+        };
+
+        const getBrandName = (brandId) => {
+            const brand = props.brands.find((brand) => brand.id === brandId);
             return brand ? brand.name : "Unknown";
-        },
-        async addToCart(product) {
+        };
+
+        const addToCart = async (product) => {
             try {
                 const token = localStorage.getItem("AuthToken");
 
-                // Check if the token is available
                 if (!token) {
                     console.error(
                         "User is not authenticated or token is missing."
                     );
-                    return; // Exit the function if token is missing
+                    return;
                 }
 
-                // Decode the JWT token to get the user ID
                 const payload = JSON.parse(atob(token.split(".")[1]));
                 const user_id = payload.sub;
 
-                // Ensure the product ID is available
                 if (!product.id) {
                     console.error("Product ID is missing.");
-                    return; // Exit the function if product ID is missing
+                    return;
                 }
 
-                const quantity = 1; // Adjust quantity as needed
-
-                // Send the request to add the product to the cart
-                const response = await axios.post(
+                await axios.post(
                     "/api/cart",
                     {
                         user_id,
                         product_id: product.id,
-                        quantity,
+                        quantity: 1, // Adjust quantity as needed
                     },
                     {
                         headers: {
@@ -81,18 +78,23 @@ export default {
                         },
                     }
                 );
-                // Emit an event indicating that the cart has been updated
-                this.$emit("cart-updated");
-                console.log("Product added to cart:", response.data);
+
+                // Call the globally exposed function to update the cart count
+                window.fetchCartItemCount();
             } catch (error) {
-                // Log any errors that occur during the request
                 console.error("Error adding product to cart:", error);
             }
+        };
+
+        return { getCategoryName, getBrandName, addToCart };
+    },
+    computed: {
+        imageUrl() {
+            return `${this.product.image_path}`;
         },
     },
 };
 </script>
-
 <style scoped>
 .product-card {
     border: 1px solid #ccc;
@@ -115,6 +117,12 @@ export default {
     margin-top: 0;
 }
 
+.product-image {
+    max-width: 100%;
+    height: 15rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
 .product-details p {
     margin-bottom: 0.5rem;
 }

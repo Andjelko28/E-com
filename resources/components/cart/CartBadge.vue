@@ -7,29 +7,29 @@
             <i class="bi bi-cart"></i>
             <span
                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                >{{ itemCount }}</span
             >
+                {{ itemCount }}
+            </span>
         </button>
     </div>
 </template>
 
 <script>
+import { ref } from "vue";
+import axios from "axios";
+
 export default {
-    data() {
-        return {
-            itemCount: 0,
-        };
-    },
-    methods: {
-        redirect() {
-            this.$router.push("/cart");
-        },
-        async fetchCartItemCount() {
+    setup() {
+        const itemCount = ref(0);
+
+        const fetchCartItemCount = async () => {
             try {
                 const token = localStorage.getItem("AuthToken");
 
                 if (!token) {
-                    console.error("User is not auth or token is missing");
+                    console.error(
+                        "User is not authenticated or token is missing."
+                    );
                     return;
                 }
 
@@ -38,20 +38,24 @@ export default {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                this.itemCount = response.data.totalItems;
+                itemCount.value = response.data.totalItems;
             } catch (error) {
                 console.error(
                     "There was an error fetching the cart count",
                     error
                 );
             }
+        };
+
+        window.fetchCartItemCount = fetchCartItemCount; // Expose function globally
+        fetchCartItemCount(); // Fetch initial count
+
+        return { itemCount };
+    },
+    methods: {
+        redirect() {
+            this.$router.push("/cart");
         },
-    },
-    created() {
-        this.fetchCartItemCount();
-    },
-    mounted() {
-        this.$root.$emit("cart-updated", this.fetchCartItemCount);
     },
 };
 </script>

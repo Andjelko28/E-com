@@ -31,6 +31,14 @@
                         >
                     </li>
                     <li>
+                        <router-link
+                            v-if="isLog && !isActive"
+                            to="/account"
+                            class="dropdown-item"
+                            >Account Settings</router-link
+                        >
+                    </li>
+                    <li>
                         <button
                             v-if="isLog"
                             class="dropdown-item log-out-red"

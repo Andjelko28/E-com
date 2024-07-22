@@ -80,8 +80,14 @@
                     placeholder="New Brand"
                 />
             </div>
-            <div>
-                <Uploader ref="imageUploader"></Uploader>
+            <div class="form-group mb-3">
+                <label for="image">Product Image</label>
+                <input
+                    type="file"
+                    class="form-control"
+                    id="image"
+                    @change="handleImageUpload"
+                />
             </div>
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
@@ -90,12 +96,8 @@
 
 <script>
 import axios from "axios";
-import Uploader from "../uploader/ImageUploader.vue";
 
 export default {
-    components: {
-        Uploader,
-    },
     data() {
         return {
             form: this.getInitialFormData(),
@@ -103,6 +105,7 @@ export default {
             newCategory: "",
             brands: [],
             categories: [],
+            imageFile: null,
         };
     },
     mounted() {
@@ -169,6 +172,9 @@ export default {
                 }
             }
         },
+        handleImageUpload(event) {
+            this.imageFile = event.target.files[0];
+        },
         async submitForm() {
             try {
                 await this.handleNewCategory();
@@ -178,7 +184,9 @@ export default {
                 Object.keys(this.form).forEach((key) => {
                     formData.append(key, this.form[key]);
                 });
-
+                if (this.imageFile) {
+                    formData.append("image", this.imageFile);
+                }
                 await axios.post("/api/products", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
