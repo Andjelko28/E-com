@@ -1,7 +1,11 @@
 <template>
     <ul class="list-style-none">
-        <li v-for="category in categories" :key="category.id">
-            <a href="#" class="a-style-none fs-4">{{ category.name }}</a>
+        <li
+            v-for="category in categories"
+            :key="category.id"
+            class="category-li px-5"
+        >
+            <a href="#" class="a-style-none fs-5">{{ category.name }}</a>
         </li>
     </ul>
 </template>

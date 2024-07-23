@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="product-list">
-            <product-card
+            <product-card-small
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import ProductCard from "./ProductCard.vue";
+import ProductCardSmall from "./ProductCardSmall.vue";
 import axios from "axios";
 
 export default {
     components: {
-        ProductCard,
+        ProductCardSmall,
     },
     data() {
         return {

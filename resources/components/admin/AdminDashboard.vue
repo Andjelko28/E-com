@@ -2,8 +2,10 @@
     <div class="layout">
         <Navbar />
         <aside>
-            <ul>
-                <button @click="comp = 'AddProduct'">Add Product</button>
+            <ul class="list-style-none">
+                <li @click="comp = 'AddProduct'" class="category-li px-5 fs-5">
+                    Add Product
+                </li>
             </ul>
         </aside>
         <main>
