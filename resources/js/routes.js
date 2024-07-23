@@ -4,6 +4,7 @@ import Register from '../components/user/Register.vue';
 import Login from '../components/user/Login.vue';
 import AdminDashboard from '../components/admin/AdminDashboard.vue';
 import Cart from '../components/cart/Cart.vue';
+import ProductCardBig from '../components/products/ProductCardBig.vue';
 
 const routes = [
     {
@@ -23,6 +24,10 @@ const routes = [
     {
         path: '/cart',
         component: Cart
+    },
+    {
+        path: '/product/:id', component: ProductCardBig, name: 'ProductCardBig', params: true
+
     }
 ];
 

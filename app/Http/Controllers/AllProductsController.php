@@ -34,4 +34,15 @@ class AllProductsController extends Controller
 
         return response()->json(['message' => 'Product created successfully']);
     }
+
+    public function getProductById($id)
+    {
+        $product = Products::find($id);
+
+        if ($product) {
+            return response()->json($product);
+        } else {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+    }
 }

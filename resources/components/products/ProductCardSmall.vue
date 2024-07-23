@@ -1,20 +1,26 @@
 <template>
-    <div class="product-card">
-        <div class="product-details">
-            <img :src="imageUrl" alt="Product image" class="product-image" />
+    <router-link :to="{ name: 'ProductCardBig', params: { id: product.id } }">
+        <div class="product-card">
+            <div class="product-details">
+                <img
+                    :src="imageUrl"
+                    alt="Product image"
+                    class="product-image"
+                />
 
-            <div class="text-center m-3">
-                <h3>{{ getBrandName(product.brand_id) }}</h3>
-                <p>{{ product.name }}</p>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <h5>${{ product.price }}</h5>
-                <button class="btn btn-primary" @click="addToCart(product)">
-                    <i class="bi bi-cart m-1 primary"></i>Add to cart
-                </button>
+                <div class="text-center m-3">
+                    <h3>{{ getBrandName(product.brand_id) }}</h3>
+                    <p>{{ getCategoryName(product.name) }}</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>${{ product.price }}</h5>
+                    <button class="btn btn-primary" @click="addToCart(product)">
+                        <i class="bi bi-cart m-1 primary"></i>Add to cart
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>

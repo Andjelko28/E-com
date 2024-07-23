@@ -23,6 +23,7 @@ Route::post('/products', [AllProductsController::class, 'store']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);
 Route::get('/products', [AllProductsController::class, 'index']);
+Route::get('/products/{id}', [AllProductsController::class, 'getProductById']);
 
 
 // Cart
